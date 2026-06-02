@@ -29,6 +29,10 @@ struct Terminal {
         return path.back();
     }
 
+    ~Terminal() {
+        delete root;
+    }
+
     void run() {
         std::string line;
         while (true) {
