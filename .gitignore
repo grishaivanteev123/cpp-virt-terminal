@@ -1,4 +1,5 @@
 .vs/
+.vscode/
 [Dd]ebug/
 [Rr]elease/
 x64/
@@ -7,6 +8,8 @@ x64/
 *.pdb
 *.log
 *.obj
+*.ilk
+vc140.pdb
 *.suo
 *.opensdf
 *.VC.db
@@ -28,9 +31,7 @@ x64/
 *.psess
 *.vsp
 *.vspx
-# Ignore temporary Visual Studio build files
 *~
-# Ignore generated workspace files
 *.vcxproj.*
 
 *.exe
