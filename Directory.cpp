@@ -1,63 +1,55 @@
-#pragma once
-#include <vector>
-#include "Entry.cpp"
+﻿#include "Directory.h"
 
-struct Directory : Entry {
-    std::vector<Entry*> children;
+Directory::Directory(const std::string& n) : Entry(n) {}
+Directory::~Directory() = default;
 
-    Directory(std::string n) : Entry(n) {}
-    
-    ~Directory() {
-        for (auto child : children) {
-            delete child;
+void Directory::addEntry(std::unique_ptr<Entry> e) {
+    children.push_back(std::move(e));
+}
+
+Entry* Directory::findEntry(const std::string& targetName, bool includeHidden) {
+    for (auto& child : children) {
+        if (child->name == targetName && (includeHidden || !child->isHidden())) {
+            return child.get();
         }
     }
+    return nullptr;
+}
 
-    void addEntry(Entry* e) {
-        children.push_back(e);
+void Directory::displayName() {
+    std::cout << "[" << name << "]";
+}
+
+std::vector<Entry*> Directory::getChildrenCopy() {
+    std::vector<Entry*> result;
+    result.reserve(children.size());
+    for (auto& child : children) {
+        result.push_back(child.get());
     }
+    return result;
+}
 
-    
-    Entry* findEntry(const std::string& targetName) {
-        for (auto child : children) {
-            if (child->name == targetName) {
-                return child;
-            }
-        }
-        return nullptr;
-    }
-
-    void displayName() override {
-        std::cout << "[" << name << "]";
-    }
-
-    std::vector<Entry*> getChildrenCopy() {
-        return children;
-    }
-
-    void listAll() override {
-        auto childcopy = getChildrenCopy();
-        for (auto child : childcopy) {
-            if (!child->isHidden()) { 
-                child->displayName();
-                std::cout << "  ";
-            }
-        }
-        std::cout << std::endl;
-    }
-
-    void hide() override {
-        hidden = true;
-        for (auto child : children) {
-            child->hide();
+void Directory::listAll() {
+    auto childcopy = getChildrenCopy();
+    for (auto child : childcopy) {
+        if (!child->isHidden()) {
+            child->displayName();
+            std::cout << "  ";
         }
     }
+    std::cout << std::endl;
+}
 
-    void restore() override {
-        hidden = false;
-        for (auto child : children) {
-            child->restore();
-        }
+void Directory::hide() {
+    hidden = true;
+    for (auto& child : children) {
+        child->hide();
     }
+}
 
-};
+void Directory::restore() {
+    hidden = false;
+    for (auto& child : children) {
+        child->restore();
+    }
+}

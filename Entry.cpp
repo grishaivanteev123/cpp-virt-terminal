@@ -1,35 +1,35 @@
-#pragma once
-#include <iostream>
-#include <string>
+﻿#include "Entry.h"
 
-struct Entry {
-    std::string name;
-    bool hidden = false;
+Entry::Entry(const std::string& n) : name(n) {}
+Entry::~Entry() {}
 
-    Entry(std::string n) : name(n) {}
-    virtual ~Entry() {}
+void Entry::displayName() {
+    std::cout << name;
+}
 
-    virtual void displayName() {
-        std::cout << name;
+void Entry::listAll() {
+    if (!hidden) {
+        displayName();
+        std::cout << std::endl;
     }
+}
 
-    virtual void listAll() {
-        if (!hidden) {
-            displayName();
-            std::cout << std::endl;
-        }
-    }
+void Entry::display() {
+    std::cout << "This entry has no content." << std::endl;
+}
 
-    virtual void display() {
-        std::cout << "This entry has no content." << std::endl;
-    }
+bool Entry::isHidden() const {
+    return hidden;
+}
 
-    virtual bool isHidden() { return hidden; }
-    virtual void hide() { hidden = true; }
-    virtual void restore() { hidden = false; }
+void Entry::hide() {
+    hidden = true;
+}
 
+void Entry::restore() {
+    hidden = false;
+}
 
-    virtual void edit() {
-        std::cout << "Error: this object cannot edit" << std::endl;
-    }
-};
+void Entry::edit() {
+    std::cout << "Error: this object cannot edit" << std::endl;
+}

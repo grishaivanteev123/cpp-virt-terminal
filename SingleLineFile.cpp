@@ -1,31 +1,30 @@
-#pragma once
-#include <iostream>
-#include <string>
-#include "Entry.cpp"
+﻿#include "SingleLineFile.h"
 
-struct SingleLineFile : Entry {
-    std::string content;
+SingleLineFile::SingleLineFile(const std::string& n) : Entry(n), content("") {}
 
-    SingleLineFile(std::string n) : Entry(n), content("") {}
-    std::string getContent() { return content; }
-    void setContent(std::string c) { content = c; }
+std::string SingleLineFile::getContent() const {
+    return content;
+}
 
-    void displayName() override {
-        std::cout << name;
-    }
+void SingleLineFile::setContent(const std::string& c) {
+    content = c;
+}
 
-    void display() override {
-        std::cout << content << std::endl;
-    }
+void SingleLineFile::displayName() {
+    std::cout << name;
+}
 
-    void edit() override {
-        std::cout << "Current content: " << content << std::endl;
-        std::cout << "Enter new line: ";
+void SingleLineFile::display() {
+    std::cout << content << std::endl;
+}
 
-        std::string newLine;
-        std::getline(std::cin >> std::ws, newLine);
+void SingleLineFile::edit() {
+    std::cout << "Current content: " << content << std::endl;
+    std::cout << "Enter new line: ";
 
-        content = newLine;
-        std::cout << "File updated." << std::endl;
-    }
-};
+    std::string newLine;
+    std::getline(std::cin >> std::ws, newLine);
+
+    content = newLine;
+    std::cout << "File updated." << std::endl;
+}

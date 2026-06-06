@@ -7,4 +7,30 @@ x64/
 *.pdb
 *.log
 *.obj
+*.suo
+*.opensdf
+*.VC.db
+*.ipch
+*.tlog
+*.lastbuildstate
+*.cache
+*.dbmdl
+*.rptproj.user
+*.vcxproj.user
+*.filters.user
+*.dll
+*.exe
+*.lib
+*.exp
+*.ncb
+*.sdf
+*.ipdb
+*.psess
+*.vsp
+*.vspx
+# Ignore temporary Visual Studio build files
+*~
+# Ignore generated workspace files
+*.vcxproj.*
+
 *.exe
